@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#link-a').on('click', function(event) {
+		//HTML 요소 만들기
+		var div = document.createElement('div'); //<div></div> 생성
+		div.style.border = 'solid 1px';
+		div.style.padding = '10px';
+		div.style.margin = '10px 0';
+		div.style.color = 'red';
+		div.innerHTML = "동적으로 만든 HTML 요소 입니다.";
+		
+		div.addEventListener('mouseenter', function(event) {
+			this.style.backgroundColor = 'lightgray';
+		});
+		div.addEventListener('mouseleave', function(event) {
+			this.style.backgroundColor = 'white';
+		});
+		div.addEventListener('click', function(event) {
+			document.querySelector("#result").removeChild(this);
+		});
+		
+		document.querySelector("#result").appendChild(div); //result 요소에 붙이기
+	});
+	
+	$('#link-b').on('click', function(event) {
+		var div = $('<div></div>');
+		//div.css('border', 'solid 1px');
+		//div.css('color', 'blue');
+		div.css({
+			"border" : "solid 1px",
+			"color" : "blue",
+			"padding" : "10px",
+			"margin" : "10px 0"
+		});
+		div.html('동적으로 추가된 HTML 요소');
+		div.hover(function(event) {
+			$(this).css('background-color', 'lightgray');
+		}, function(event) {
+			$(this).css('background-color', 'white');
+		});
+		div.on('click', function(event) {
+			$(this).remove();
+		});
+		$('#result').append(div);
+	});
+});
+</script>
+</head>
+<body>
+
+
+<a id ="link-a" href="javascript:">동적 객체 만들기 1</a>
+&nbsp;&nbsp;
+<a id ="link-b" href="javascript:">동적 객체 만들기 2</a>
+<hr>
+<div id="result"></div>
+
+<div style="border:solid 1px red;width:300px;height:100px"></div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

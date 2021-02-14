@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Context path="/demoweb" reloadable="true">
+	<!-- tomcat container's connection pool setting -->
+	<Resource name="jdbc/demoweb" 
+			  auth="Container"
+              type="javax.sql.DataSource" 
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@172.16.6.16:1521:xe"
+              username="demoweb" password="oracle" 
+              maxTotal="20" maxIdle="10"
+              maxWaitMillis="-1"/>
+</Context>

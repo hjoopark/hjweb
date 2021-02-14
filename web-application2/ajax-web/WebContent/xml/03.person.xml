@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<person>
+	<name>Hyunjoo</name>
+	<title>manager</title>
+	<email>hjoo_park@naver.com</email>
+	<phone type="mobile">010-4016-6278</phone>
+	<address>
+		<zip>12345</zip>
+		<base>구로동 주호타워</base>
+		<detail>3층 6교육장</detail>
+	</address>
+	<resume>
+		<html:html xmls:html="http://www.w3.org/html">
+			<html:head>
+				<html:title></html:title>
+			</html:head>
+			<html:body>
+			</html:body>
+		</html:html>
+	</resume>
+</person>

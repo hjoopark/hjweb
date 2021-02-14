@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>hello ajax</title>
+</head>
+<body>
+[ <a id="sync-req" href="javascript:">동기 방식 요청</a> ]
+&nbsp;&nbsp;
+[ <a id="async-req" href="javascript:">비동기 방식 요청</a> ]
+<hr>
+<div id="result" style="border:solid 1px;padding:10px">&nbsp;</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#sync-req').on('click', function(event) {
+		location.href="sync-req.action";
+	});
+	
+	var proxy = null;
+	$('#async-req').on('click', function(event) {
+		//비동기 요청 처리 객체 만들기
+		proxy = new XMLHttpRequest();
+		
+		//비동기 요청 보내기
+		proxy.open('GET', 'async-req.action', true)
+		proxy.onreadystatechange = stateChangeHandler;
+		proxy.send(null);
+	});
+	function stateChangeHandler() {
+		//비동기 요청 수신 및 처리
+		if (proxy.readyState == 4) {
+			$('#result').html(proxy.responseText);
+		}
+	}
+});
+</script>
+
+</body>
+</html>
+
+
+
+

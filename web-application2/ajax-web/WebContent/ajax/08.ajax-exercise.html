@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	var html = "<ul>" + 
+			   "<li>첫 번째 아이템</li>" +
+			   "<li>두 번째 아이템</li>" +
+			   "<li>세 번째 아이템</li>" +
+			   "<li>네 번째 아이템</li>" +
+			   "<li>다섯 번째 아이템</li>" +
+			   "</ul>"
+	$('#link-a').on('click', function(event) {
+		
+		// 미리 만들어둔 문자열로 복잡한 HTML 객체 생성 
+		var h = $(html);
+		$('#result').append(h);
+	});
+	
+	$('#link-b').on('click', function(event) {
+		
+		// 이미 존재하는 HTML 객체로 부터 복제
+		var cloned = $('#src').clone();	// clone : 원본 복제한 객체 만들기
+		$('#result').append(cloned);
+		
+	});
+	
+	$('#link-c').on('click', function(event) {
+		
+		
+		// 서버에서 HTML을 가져와서 객체를 생성
+		$.ajax({
+			"url": "08.partial-page.jsp",
+			"success": function(data, status, xhr) {
+				var h = $(data);
+				$('#result').append(h);
+			}
+		});
+		
+	});
+});
+</script>
+</head>
+<body>
+
+
+<a id ="link-a" href="javascript:">동적 객체 만들기 1</a>
+&nbsp;&nbsp;
+<a id ="link-b" href="javascript:">동적 객체 만들기 2</a>
+&nbsp;&nbsp;
+<a id ="link-c" href="javascript:">동적 객체 만들기 3</a>
+<hr>
+<div id="result"></div>
+<hr>
+<ul id="src">
+	<li>첫 번째 아이템 X</li>
+	<li>두 번째 아이템 X</li>
+	<li>세 번째 아이템 X</li>
+	<li>네 번째 아이템 X</li>
+	<li>다섯 번째 아이템 X</li>
+</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

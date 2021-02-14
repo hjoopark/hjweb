@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title>사용자검색</title>
+<link rel="Stylesheet" href="styles/default.css" />
+<link rel="Stylesheet" href="styles/input.css" />
+
+</head>
+<body>
+
+	<div id="pageContainer">
+
+		<div id="header">
+			<div class="title">
+				<a href="#">DEMO WEBSITE</a>
+			</div>
+			<div class="links">
+
+				<a href="#">로그인</a> <a href="#">등록</a>
+
+			</div>
+		</div>
+		<div id="menu">
+			<div>
+				<ul>
+					<!-- a : 페이지 이동을 처리하는 마크업 -->
+					<li><a href="#">사용자관리</a></li>
+					<li><a href="#">메일보내기</a></li>
+					<li><a href="#">자료실</a></li>
+					<li><a href="#">게시판</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="inputcontent">
+			<br />
+			<br />
+			<div id="inputmain">
+				<div class="inputsubtitle">회원정보검색</div>
+
+				<table>
+					<tr>
+						<th>아이디(ID)</th>
+						<td>
+							<input type="text" id="memberid" name="memberid" style="width: 230px" /> 
+							&nbsp;[&nbsp;<a id="search-link" href="#">검색</a>&nbsp;]
+							<br>
+							<div id="wait-indicator">
+								<img src="images/ajax-loader.gif" align="middle">
+								검색 요청을 처리 중 입니다.
+							</div>
+						</td>
+							
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td><input type="text" id="passwd" style="width: 280px"
+							readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td><input type="text" id="email" style="width: 280px"
+							readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<th>사용자구분</th>
+						<td><input type="text" id="usertype" style="width: 280px"
+							readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<th>활성화여부</th>
+						<td><input type="text" id="active" style="width: 280px"
+							readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<th>등록일자</th>
+						<td><input type="text" id="regdate" style="width: 280px"
+							readonly="readonly" /></td>
+					</tr>
+				</table>
+				<div class="buttons">
+					<input type="reset" value="초기화" style="height: 25px" />
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	$(function() { //jQuery의 main 함수 역할 : 이제 이 안에서는 html 문서의 모든 요소가 준비되었습니다.
+		
+		$('#wait-indicator').css('display', 'none');
+	
+		var isRunning = false; //비동기 요청이 진행중인지 여부를 저장
+		
+		$('#search-link').on('click', function(event) {
+			
+			if (isRunning) {
+				alert('이전 검색을 처리하고 있습니다.');
+				return;
+			}
+			
+			var memberId = $('#memberid').val();
+			if (memberId.length == 0) {
+				alert('검색할 아이디를 입력하세요')
+				$('memberid').focuse();
+				return;
+			}
+			
+			isRunning = true;
+			$('#wait-indicator').css('display', 'block');
+			
+			$.ajax({
+				//url : "search-member.action?memberid=" + memberId,
+				url : "search-member.action",
+				method : "GET",
+				//data : "memberid=" + memberId,
+				data : { "memberid" : memberId },
+				//여기서 servlet에서 out.write로 보내준 result가 data로 넘어 온다.
+				success : function(data, status, xhr) {	
+					
+					$('#wait-indicator').css('display', 'none');
+					isRunning = false;
+					
+					//alert(data);
+					if (data === 'no-result') {
+						alert('해당 아이디에 대한 검색 결과가 없습니다.');
+						return;
+					}
+					var member = data.split(';'); // "a;b;c" -> ['a', 'b', 'c'] 
+					$('#memberid').val(member[0]);
+					$('#email').val(member[1]);
+					$('#regdate').val(member[2]);
+					$('#usertype').val(member[3]);
+					$('#active').val(member[4]);
+					
+				},
+				error : function(xhr, status, err) {
+					alert("검색 실패");
+					
+					$('#wait-indicator').css('display', 'none');
+					isRunning = false;
+				}
+			});
+		});
+	});
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

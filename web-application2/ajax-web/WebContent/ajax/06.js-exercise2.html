@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<!-- 
+select-link가 클릭되면 -> 1 ~ 45, Random, 중복, 6개 숫자 추출 -> 
+1) result에 추출된 숫자를 div로 표시 (div 6개를 동적으로 만들고 추가, 이 때 기존 div 제거)
+2) result에 추출된 숫자를 img로 표시 (img 6개를 동적으로 만들고 추가, 이 때 기존 img 제거)
+-->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#select-link').on('click', function(event) {
+		var numbers = [];
+		for (var i = 0; i < 6; i++) {
+			var n = Math.random(); // 0 ~ 1사이의 난수
+			n = n * 45; //0 ~ 45
+			n = Math.floor(n) + 1; // 1 ~ 46
+			numbers[i] = n;
+		}
+		$('#result').empty(); //자식 요소를 모두 제거
+		for (var i = 0; i < 6; i++) {
+			// 1. div를 만들고 목록에 추가
+			/* var div = $('<div></div>');
+			div.css({
+				"border": "solid 1px",
+				"margin": "10px",
+				"padding": "30px",
+				"font-size": "20pt",
+				"font-weight": "bold",
+				"text-align": "center",
+				"width": "60px",
+				"float": "left"
+			});
+			div.text(numbers[i]);
+			$('#result').append(div); */
+			
+			//2. img 만들고 목록에 추가
+			var img = $('<img>');
+			img.attr({
+				"src": "images/" + numbers[i] + ".gif",
+			});
+			img.css({
+				"margin": "10px",
+				"width": 60,
+				"height": 60
+			});
+			$('#result').append(img);
+		}
+	});
+});
+</script>
+</head>
+<body>
+<a id="select-link" href="javascript:">당첨 예상 번호 추출</a>
+<hr>
+<div id="result"></div>
+
+
+
+</body>
+</html>
+
+
+

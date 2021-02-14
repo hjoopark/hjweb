@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>hello ajax</title>
+</head>
+<body>
+[ <a id="sync-req" href="javascript:">동기 방식 요청</a> ]
+&nbsp;&nbsp;
+[ <a id="async-req" href="javascript:">비동기 방식 요청</a> ]
+<hr>
+<div id="result" style="border:solid 1px;padding:10px">&nbsp;</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#sync-req').on('click', function(event) {
+		location.href="sync-req.action";
+	});
+	$('#async-req').on('click', function(event) {
+		$.ajax({
+			url: 'async-req.action',				//비동기 요청 대상
+			success: function(data, status, xhr) {	//성공했을 때 호출할 함수
+				$('#result').html(data);
+			},
+			error: function(xhr, status, err) {		//실패했을 때 호출할 함수
+				alert('fail!!!');
+			}
+		});
+		
+	});
+});
+</script>
+
+</body>
+</html>
+
+
+
+

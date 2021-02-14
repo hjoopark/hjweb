@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!--
+<new-example>
+</new-example> 
+ -->
+<example>
+
+	<hello>Hello, XML</hello>
+	
+	<phone type="mobile">010-4016-6278</phone>
+	<phone>
+		<home>1111</home>
+		<office>2222</office>
+		<mobile>3333</mobile>
+	</phone>
+	<message>
+		This is <red><b>test</b>message</red>
+	</message>
+	<p>
+	</p>
+	
+	<pcdata>&lt;&quot;&apos;&amp;&amp;&amp;&apos;&quot;&gt;</pcdata>
+</example>
